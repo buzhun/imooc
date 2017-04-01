@@ -1,0 +1,24 @@
+{
+  "name": "wllMovie",
+  "description": "movie mes",
+  "main": "app.js",
+  "authors": [
+    "wanglinlin04 <wanglinlin04@meituan.com>"
+  ],
+  "license": "ISC",
+  "keywords": [
+    "movie"
+  ],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "^3.3.7"
+  }
+}
