@@ -21,7 +21,7 @@ var dbUrl = 'mongodb://localhost/my_database';
 mongoose.connect(dbUrl);
 
 //配置渲染层模版，转换静态文件目录
-app.set('views','./views/pages')
+app.set('views','./app/views/pages')
 app.set('view engine','jade')
 app.use(express.static(path.join(__dirname, 'public')));
 
