@@ -1,16 +1,28 @@
 var Movie = require('../models/movie')
 var _ = require('underscore')// underscore 提供js的函数方法 http://www.css88.com/doc/underscore/
+var Comment = require('../models/comment')
 
 exports.detail = function(req,res){
   var id = req.params.id;
+  console.log(req.session.user)
   Movie.findById(id,function(err, movie){
     if(err){
       console.log(err);
     }
-    res.render('detail',{
-      title:'imooc'+movie.title,
-      id:id,
-      movie:movie
+    Comment
+      .find({movie:id})
+      .populate('from','name')
+      .populate('reply.from reply.to','name')
+      .exec(function(err,comment){
+        if(err){
+          console.log(err);
+        }
+        res.render('detail',{
+          title:'imooc'+movie.title,
+          id:id,
+          movie:movie,
+          comment:comment
+        })
     })
   })
 }

@@ -4,8 +4,9 @@ var upload = multer(); // for parsing multipart/form-data
 var Index = require('../app/controller/index')
 var User = require('../app/controller/user')
 var Movie = require('../app/controller/movie')
+var Comment = require('../app/controller/comment')
+
 //路由
-console.log(User.signup)
 module.exports = function(app){
   app.use(function(req,res,next){
     var _user = req.session.user;
@@ -20,13 +21,13 @@ module.exports = function(app){
   app.get('/logout', User.logout)
   app.get('/admin/userList', User.signinRequired, User.list)
 
-  app.get('/detail/:id', Movie.detail)
+  app.get('/movie/:id', Movie.detail)
   app.get('/admin/movie', Movie.new)
   app.get('/admin/movie/list',User.signinRequired,Movie.list)
   app.get('/admin/update/:id', Movie.update)
   app.post('/admin/movie/new', User.signinRequired, upload.array(), Movie.save)
   app.delete('/admin/movie/list',User.signinRequired, Movie.delete)
 
-  app.post('/comment', Comment.save)
+  app.post('/user/comment', Comment.save)
 
 }

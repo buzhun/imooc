@@ -8,7 +8,7 @@ exports.signup = function(req,res){
       console.log(err)
     }
     if(user){
-      res.redirect('/')
+      res.redirect('/signin')
     }else{
       var user = new User(_user)
       user.save(function(err, user){

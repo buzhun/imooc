@@ -1,11 +1,11 @@
 extends ../layout.jade
 
 block content
-  .container
+  .container(style="padding-bottom: 150px;")
     .row
       .col-md-7
-        embed(src="#{movie.flash}",allowFullScreen="true", quality="high",width="720",height="600",align="middle",type="application/x-shockwave-flash")
-        .col-md-5
+        embed(src="#{movie.flash}",allowFullScreen="true", quality="high",width="320",height="300",align="middle",type="application/x-shockwave-flash")
+        .col-md-7
           dl.dl-horizontal
             dt 电影名称
             dd= movie.title
@@ -19,3 +19,38 @@ block content
             dd= movie.year
             dt 简介
             dd= movie.summary
+    #comment
+      .panel.panel-default
+        .panel-heading
+          h3 评论区
+        .panel-body
+          ul.media-list
+            each item in comment
+              li.media
+                .pull-left
+                  a.comment-back(href="#comment-edit",data-cid="#{item._id}",data-tid="#{item.from._id}")
+                    img.media-object(style="width:40px;height:40px;")
+                .media-body
+                  h4.media-heading #{item.from.name}
+                  p #{item.content}
+                  if item.reply&&item.reply.length>0
+                    ul.media-list
+                      each reply in item.reply
+                        li.media
+                          .pull-left
+                            a.comment-back(href="#comment-edit",data-cid="#{item._id}",data-tid="#{item.from._id}")
+                              img.media-object(style="width:40px;height:40px;")
+                          .media-body
+                            h4.media-heading #{reply.from.name} 
+                              span &nbsp回复&nbsp#{reply.to.name}
+                            p #{reply.content}
+          form.form-horizontal#comment-form(method="post",action="/user/comment")
+            if user
+              input(type="hidden" name="comment[movie]" value="#{movie._id}")
+              input(type="hidden" name="comment[from]" value="#{user._id}")
+              .form-group
+                textarea.form-control#comment-edit(name="comment[content]", row="3")
+              button.btn(type="submit")  提交
+            else
+              a(href="#")  登录后评论
+  script(src="/js/comment.js")
