@@ -38,10 +38,10 @@ block content
                       each reply in item.reply
                         li.media
                           .pull-left
-                            a.comment-back(href="#comment-edit",data-cid="#{item._id}",data-tid="#{item.from._id}")
+                            a.comment-back(href="#comment-edit",data-cid="#{item._id}",data-tid="#{reply.from._id}")
                               img.media-object(style="width:40px;height:40px;")
                           .media-body
-                            h4.media-heading #{reply.from.name} 
+                            h4.media-heading #{reply.from.name}
                               span &nbsp回复&nbsp#{reply.to.name}
                             p #{reply.content}
           form.form-horizontal#comment-form(method="post",action="/user/comment")
@@ -52,5 +52,5 @@ block content
                 textarea.form-control#comment-edit(name="comment[content]", row="3")
               button.btn(type="submit")  提交
             else
-              a(href="#")  登录后评论
+              a.navbar-link(href="#",data-toggle="modal",data-target="#signinModal")  登录后评论
   script(src="/js/comment.js")

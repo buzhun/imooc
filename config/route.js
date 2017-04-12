@@ -5,6 +5,7 @@ var Index = require('../app/controller/index')
 var User = require('../app/controller/user')
 var Movie = require('../app/controller/movie')
 var Comment = require('../app/controller/comment')
+var Category = require('../app/controller/category')
 
 //路由
 module.exports = function(app){
@@ -29,5 +30,9 @@ module.exports = function(app){
   app.delete('/admin/movie/list',User.signinRequired, Movie.delete)
 
   app.post('/user/comment', Comment.save)
+
+  app.get('/admin/category/new',User.signinRequired,Category.new)
+  app.post('/admin/category',User.signinRequired,Category.save)
+  app.get('/admin/category/list',User.signinRequired,Category.list)
 
 }
